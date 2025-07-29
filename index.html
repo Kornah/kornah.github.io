@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Install Discord on Linux</title>
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Ubuntu', sans-serif;
+      display: flex;
+      background-color: #fdfdfd;
+      color: #222;
+    }
+    nav {
+      width: 220px;
+      padding: 24px;
+      background: #f0f0f0;
+      border-right: 1px solid #ccc;
+      height: 100vh;
+      position: sticky;
+      top: 0;
+    }
+    nav h2 {
+      font-size: 1.2rem;
+      margin-bottom: 1em;
+    }
+    nav a {
+      display: block;
+      margin: 8px 0;
+      text-decoration: none;
+      color: #333;
+      font-size: 1rem;
+    }
+    nav a:hover {
+      color: #005eff;
+    }
+    main {
+      flex: 1;
+      padding: 40px;
+      max-width: 960px;
+      line-height: 1.7;
+      font-size: 1.1rem;
+    }
+    main h1 {
+      font-size: 2.4rem;
+      margin-bottom: 1rem;
+    }
+    main h2 {
+      font-size: 1.6rem;
+      margin-top: 2rem;
+      margin-bottom: 0.5rem;
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 4px;
+    }
+    main p, main li {
+      margin-bottom: 1rem;
+    }
+    code {
+      background-color: #eee;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+    aside {
+      width: 200px;
+      background: #fff;
+      padding: 24px;
+      border-left: 1px solid #ccc;
+      height: 100vh;
+      position: sticky;
+      top: 0;
+    }
+	#smth {
+		border: 2px solid gray;
+		padding: 5px;
+	}
+  </style>
+</head>
+<body>
+
+  <nav>
+    <h2>Sections</h2>
+    <a href="#intro">Introduction</a>
+    <a href="#methods">Installation Methods</a>
+    <a href="#tar">Using .tar.gz</a>
+    <a href="#flatpak">Using Flatpak</a>
+    <a href="#autostart">Auto-Start</a>
+    <a href="#sound">Sound Fixes</a>
+    <a href="#faq">FAQ</a>
+  </nav>
+
+  <main>
+    <h1>How to Install Discord on ANY Linux Distro</h1>
+
+    <h2 id="intro">Introduction</h2>
+    <p>
+      This guide walks you through installing Discord on most Linux distros — whether you're using Ubuntu, Void Linux, Arch, or others. We'll cover both manual and automated methods with pros and cons.
+    </p>
+
+    <h2 id="methods">Installation Methods</h2>
+    <p>There are two common ways:</p>
+    <ul>
+      <li><strong>Official .tar.gz</strong> – Lightweight and distro-independent, but needs manual setup.</li>
+      <li><strong>Flatpak</strong> – Easy to install via Flathub, but heavier and sandboxed.</li>
+    </ul>
+
+    <h2 id="tar">Installing Discord via .tar.gz</h2>
+    <p>1. Go to the official website and download the Linux version: <a href="https://discord.com/download">discord.com/download</a></p>
+    <p>2. Extract the archive:</p>
+    <pre><code>tar -xf discord-*.tar.gz</code></pre>
+    <p>3. Move it to a system directory (optional):</p>
+    <pre><code>sudo mv Discord /opt/discord</code></pre>
+    <p>4. Launch with:</p>
+    <pre><code>/opt/discord/Discord</code></pre>
+    <p>5. (Optional) Create a desktop shortcut by making a <code>.desktop</code> file in <code>~/.local/share/applications/</code>.</p>
+
+    <h2 id="flatpak">Installing Discord via Flatpak</h2>
+    <p>1. Install Flatpak if you don’t have it already.</p>
+    <p>2. Run:</p>
+    <pre><code>flatpak install flathub com.discordapp.Discord</code></pre>
+    <p>3. To launch:</p>
+    <pre><code>flatpak run com.discordapp.Discord</code></pre>
+    <p>Flatpak provides sandboxing and easier updates but can use more memory.</p>
+
+    <h2 id="autostart">Setting Up Auto-Start</h2>
+    <p>Create a <code>.desktop</code> file in:</p>
+    <pre><code>~/.config/autostart/discord.desktop</code></pre>
+    <p>Example content:</p>
+    <pre id="smth">[Desktop Entry]
+Type=Application
+Exec=/opt/discord/Discord
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name=Discord</pre>
+
+    <h2 id="sound">Fixing Sound Issues</h2>
+    <ul>
+      <li>Check if Discord is sandboxed (Flatpak). Run with <code>--no-sandbox</code> if needed.</li>
+      <li>Make sure PulseAudio or PipeWire is working properly.</li>
+      <li>Try rebooting after initial setup.</li>
+    </ul>
+
+<h2 id="faq">FAQ</h2>
+
+<div class="faq">
+  <div class="faq-item" onclick="toggleFAQ(this)">
+    <h3>Why doesn't Discord start?</h3>
+    <p class="faq-answer">Run it in the terminal and check for missing libraries with <code>ldd</code>.</p>
+  </div>
+
+  <div class="faq-item" onclick="toggleFAQ(this)">
+    <h3>Can I use the web version instead?</h3>
+    <p class="faq-answer">Yes! Just go to <a href="https://discord.com/app">discord.com/app</a> in your browser.</p>
+  </div>
+
+  <div class="faq-item" onclick="toggleFAQ(this)">
+    <h3>Where’s the config directory?</h3>
+    <p class="faq-answer">It's usually in <code>~/.config/discord</code>.</p>
+  </div>
+
+  <div class="faq-item" onclick="toggleFAQ(this)">
+    <h3>How to remove Discord completely?</h3>
+    <p class="faq-answer">
+      Delete the installation directory and the config folder:
+      <pre><code>rm -rf ~/.config/discord
+sudo rm -rf /opt/discord</code></pre>
+    </p>
+  </div>
+</div>
+
+  </main>
+
+  <aside>
+    <p><strong>Advertisement</strong></p>
+    <p>[your ad or affiliate banner here]</p>
+  </aside>
+
+</body>
+</html>
