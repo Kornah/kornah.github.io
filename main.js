@@ -97,12 +97,11 @@ window.addEventListener("keyup", (e) =>
 })
 
 
-const PLAYER_SPEED = 2; // Adjust speed to match your server
+const PLAYER_SPEED = 2; 
 
 const test = () => {
     scene.ctx.clearRect(0, 0, scene.canvas.width, scene.canvas.height);
     
-    // 1. Instantly move locally for 60fps smoothness
     if (keys.KeyW) player.y -= PLAYER_SPEED;
     if (keys.KeyS) player.y += PLAYER_SPEED;
     if (keys.KeyA) player.x -= PLAYER_SPEED;
